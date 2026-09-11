@@ -274,3 +274,32 @@ Source commits:
 - rebuilt Episodes 1–6: `4243454fdf7d9a648b441066a86052148269d9c6`
 - completed Arc 1 + dormant Level 2 migration: `5e00fd8cc112d1d1cb6e3c984c7f0a5b44d9a1c3`
 
+
+
+## Production checkpoint — Level 1 Arc 1 live
+
+Verified production deployment:
+- deployment ID: `dpl_9DxrXWQBd4KzZzJmrcrbtWEzWVXw`
+- deployment URL: `haneul-kdrama-interactive-8wljrltw4-sushan5140s-8170s-projects.vercel.app`
+- target: `production`
+- state: `READY`
+- stable URL: https://haneul-kdrama-interactive.vercel.app
+
+Verified on both the deployment-specific URL and the stable URL:
+- Episode 1 marker: `Arrival at Haneul`
+- Episode 8 marker: `The Welcome Board`
+- 10-arc Level 1 navigation data is present
+- active Level 1 numbering boundary is 80
+
+The inline JavaScript also passed a compile-only syntax check before deployment.
+
+This verifies the intended source reached production. Full interactive browser testing of every scene/choice is still a separate verification step.
+
+## Next implementation target
+
+Proceed with **Arc 2 — Things We Like, Places We Know**:
+- Episodes 9–16
+- KSI Beginner 1 Lessons 3–4
+- preserve Arc 1 progress/review compatibility
+- keep Level 2 dormant until the Level 1 rebuild is complete
+- Google OAuth remains final-stage work
