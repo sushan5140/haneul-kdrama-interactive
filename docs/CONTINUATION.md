@@ -3,12 +3,14 @@
 Use this file when a new chat takes over the project.
 
 ## First steps
-1. Read `AGENTS.md`.
-2. Read `docs/CURRENT_STATE.md`.
-3. Read `docs/PROJECT_RULES.md`.
-4. Read this file.
-5. Inspect only the relevant areas of `index.html`.
-6. Inspect current production before asserting live behavior.
+1. Read `START_HERE.md`.
+2. Read `AGENTS.md`.
+3. Read `docs/CURRENT_STATE.md`.
+4. Read `docs/PROJECT_RULES.md`.
+5. Read this file.
+6. Inspect only the relevant areas of `index.html`.
+7. Inspect current production before asserting live behavior.
+8. Continue the user's requested work without asking them to reconstruct previous chats.
 
 ## Canonical identities
 
@@ -23,6 +25,17 @@ Vercel:
 Supabase:
 - project: `Haneul`
 - ref: `uyltjaftajwkujjhuric`
+
+## Fresh-chat fallback
+
+Do not make continuation depend on an old sandbox, old chat transcript, or remembered hidden context.
+
+If the GitHub connector is unavailable:
+1. use normal web access to read the public repository if available
+2. use the live deployment for live-state inspection
+3. report an actual blocker only if the required source/infrastructure truly cannot be accessed
+
+Do not ask the user to paste the entire old conversation when the repository is available.
 
 ## Backend continuation
 Auth/sync code exists and learner tables/RLS exist.
