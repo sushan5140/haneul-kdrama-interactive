@@ -158,14 +158,13 @@ This is now the canonical cross-chat recovery mechanism for Haneul K-Drama Inter
 ## Current continuation priorities
 
 ### Product/story expansion — now the main track
-1. finish Level 2 visual continuity and scene-image switching
-2. expand the story system beyond the current 2 levels
-3. design Levels 3–5 as a connected K-drama arc with recurring characters
-4. introduce controlled branching with short consequence scenes that rejoin the main plot
-5. strengthen cross-episode vocabulary recycling and contextual review
-6. deepen My Drama Journey so it reflects story choices, learned lines, mastery, and completed arcs
-7. polish Personalized Review using actual mistakes and scene history
-8. add richer progression/unlocks without turning the app into a generic game
+1. **Complete Level 1 fully before active Level 2 development**
+2. existing Episodes 1–6 become Arc 1 of the Level 1 beginner season
+3. expand Level 1 toward the approved 24-episode / 4-arc structure in `docs/LEVEL_1_PLAN.md`
+4. add arc checkpoints, cross-episode recycling, story-memory callbacks, and progressive reduction of English support
+5. finish Level 1 visual continuity and scene-image switching across the expanded season
+6. verify Personalized Review and My Drama Journey against the expanded Level 1 content
+7. only after Level 1 meets its completion criteria, resume Level 2 and later Levels 3–5
 
 ### Backend/account track — secondary until product expansion is stronger
 1. preserve the existing email/password auth and Supabase sync implementation
@@ -175,4 +174,6 @@ This is now the canonical cross-chat recovery mechanism for Haneul K-Drama Inter
 5. do not prioritize OAuth setup ahead of story/level expansion unless the user changes direction
 
 ### Story direction
-The user explicitly wants Haneul taken to the next level with additional connected stories and levels before final auth polish.
+The user explicitly changed the sequencing on 2026-09-12: **finish Level 1 completely first, then move to Level 2**. One short story is not enough for Level 1; it should cover the important beginner foundations through multiple connected story arcs.
+
+Canonical Level 1 expansion plan: `docs/LEVEL_1_PLAN.md`.
