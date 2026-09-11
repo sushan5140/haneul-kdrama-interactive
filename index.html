@@ -101,11 +101,11 @@
   <div class="footerHint" id="footerHint">Episode 1 · beginner Korean · all learning layers are optional</div>
 </main>
 </div>
-<div class="seasonModal" id="seasonModal" aria-hidden="true"><div class="seasonSheet"><div class="seasonHead"><div><h2>K-Drama Interactive · Levels 1–2</h2><p>Twelve connected episodes. Level 2 opens after you complete Level 1.</p></div><button class="closeSeason" id="closeSeason">×</button></div><div class="seasonStats" id="seasonStats"></div><div class="seasonGrid" id="seasonGrid"></div></div></div>
+<div class="seasonModal" id="seasonModal" aria-hidden="true"><div class="seasonSheet"><div class="seasonHead"><div><h2>K-Drama Interactive · Level 1</h2><p>80 KSI-aligned story episodes across 10 connected arcs. Level 2 is preserved for later.</p></div><button class="closeSeason" id="closeSeason">×</button></div><div class="seasonStats" id="seasonStats"></div><div class="seasonGrid" id="seasonGrid"></div></div></div>
 
 <div class="reviewModal" id="reviewModal" aria-hidden="true"><div class="reviewSheet"><div class="reviewHead"><div><h2>Personalized Review</h2><p>Your mistakes, saved lines and weak expressions — recycled from the drama.</p></div><button class="reviewClose" id="closeReview">×</button></div><div class="reviewStats" id="reviewStats"></div><div id="reviewBody"></div></div></div>
 <div class="reviewModal" id="libraryModal" aria-hidden="true"><div class="reviewSheet"><div class="reviewHead"><div><h2>Saved Dialogue</h2><p>Lines you chose to keep from the story.</p></div><button class="reviewClose" id="closeLibrary">×</button></div><div id="libraryBody"></div></div></div>
-<div class="reviewModal" id="journeyModal" aria-hidden="true"><div class="reviewSheet"><div class="reviewHead"><div><h2>My Drama Journey</h2><p>Your progress across Levels 1–2.</p></div><button class="reviewClose" id="closeJourney">×</button></div><div class="reviewStats" id="journeyStats"></div><div id="journeyBody"></div></div></div>
+<div class="reviewModal" id="journeyModal" aria-hidden="true"><div class="reviewSheet"><div class="reviewHead"><div><h2>My Drama Journey</h2><p>Your progress through the 80-episode Level 1 season.</p></div><button class="reviewClose" id="closeJourney">×</button></div><div class="reviewStats" id="journeyStats"></div><div id="journeyBody"></div></div></div>
 <div class="authModal" id="authModal" aria-hidden="true"><div class="authCard"><h2>Haneul account</h2><p>Keep your drama progress, saved lines and review state synced across devices.</p><label>Email</label><input id="authEmail" type="email" autocomplete="email" placeholder="you@example.com"><label>Password</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="At least 6 characters"><div class="authActions"><button class="primary" id="authSignIn">Sign in</button><button id="authSignUp">Create account</button><button id="authClose">Cancel</button><button class="danger" id="authSignOut" style="display:none">Sign out</button></div><div class="authMsg" id="authMsg"></div><div class="cloudNote">Your browser stays the local fallback. Signed-in progress is also saved to Haneul's Supabase backend.</div></div></div>
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -261,7 +261,7 @@ function sessionDays(){try{return JSON.parse(localStorage.getItem('haneul-kdrama
 function currentStreak(){const days=new Set(sessionDays());let d=new Date(),n=0;for(;;){const k=d.toISOString().slice(0,10);if(days.has(k)){n++;d.setDate(d.getDate()-1)}else break}return n}
 
 function isComplete(i){return localStorage.getItem(`haneul-kdrama-episode${i+1}`)==='complete'}
-function isUnlocked(i){return i===0||isComplete(i-1)}
+function isUnlocked(i){return i<LEVEL_SIZE&&(i===0||isComplete(i-1))}
 function markSeen(s){const m=getMemory();m.seenWords=m.seenWords||{};m.seenLines=m.seenLines||{};(s.vocab||[]).forEach(v=>m.seenWords[v[0]]=(m.seenWords[v[0]]||0)+1);m.seenLines[s.line]=(m.seenLines[s.line]||0)+1;saveMemory(m)}
 function markChoice(s,ok){const m=getMemory();m.mistakes=m.mistakes||{};m.mastered=m.mastered||{};m.lastSeen=m.lastSeen||{};m.lastSeen[s.line]=Date.now();if(ok)m.mastered[s.line]=(m.mastered[s.line]||0)+1;else m.mistakes[s.line]=(m.mistakes[s.line]||0)+1;saveMemory(m)}
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
@@ -272,6 +272,7 @@ function panelHTML(tab){const s=currentScene();if(tab==='story')return `<h3>Scen
 function render(tab=activeTab){activeTab=tab; $$('#tabs .tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab)); $('#tabPanel').innerHTML=panelHTML(tab)}
 
 const LEVEL_SIZE=6;
+const LEVEL1_TARGET=80;
 const levelOf=i=>Math.floor(i/LEVEL_SIZE)+1;
 const localEpisodeNo=i=>(i%LEVEL_SIZE)+1;
 const levelStart=l=>(l-1)*LEVEL_SIZE;
@@ -279,7 +280,7 @@ function progressData(level=levelOf(episodeIndex)){
   const start=levelStart(level), end=Math.min(start+LEVEL_SIZE,episodes.length);
   const completed=episodes.slice(start,end).filter((_,j)=>isComplete(start+j)).length;
   const m=getMemory();
-  return {completed,pct:Math.round(completed/(end-start)*100),words:Object.keys(m.seenWords||{}).length,mastered:Object.keys(m.mastered||{}).length}
+  return {completed,pct:Math.round(completed/(level===1?LEVEL1_TARGET:(end-start))*100),words:Object.keys(m.seenWords||{}).length,mastered:Object.keys(m.mastered||{}).length}
 }
 
 function allSceneRefs(){const a=[];episodes.forEach((e,ei)=>e.scenes.forEach((s,si)=>a.push({e,ei,s,si,key:`${ei}:${si}`})));return a}
@@ -315,7 +316,7 @@ function renderJourney(){
   const wrong=Object.entries(m.mistakes||{}).sort((a,b)=>b[1]-a[1]).slice(0,4),reviewWins=Object.values(h).reduce((a,x)=>a+(x.good||0),0),week=[];
   for(let d=6;d>=0;d--){const dt=new Date();dt.setHours(0,0,0,0);dt.setDate(dt.getDate()-d);const key=dt.toISOString().slice(0,10);week.push({key,on:days.includes(key),today:d===0})}
   const trail=(lvl)=>episodes.slice(levelStart(lvl),levelStart(lvl)+LEVEL_SIZE).map((e,j)=>{const i=levelStart(lvl)+j,done=isComplete(i),locked=isLocked(i),cur=i===nextEi&&!done&&!locked;return `<div class="trailEp ${done?'done':cur?'current':locked?'locked':''}"><b><i class="dot"></i>E${j+1}</b><span>${esc(e.short)}</span></div>`}).join('');
-  $('#journeyStats').innerHTML=`<div class="reviewStat"><b>${done}/12</b><span>episodes complete</span></div><div class="reviewStat"><b>${saved.length}</b><span>saved expressions</span></div><div class="reviewStat"><b>${streak}</b><span>day streak</span></div><div class="reviewStat"><b>${reviewWins}</b><span>review wins</span></div>`;
+  $('#journeyStats').innerHTML=`<div class="reviewStat"><b>${episodes.slice(0,LEVEL_SIZE).filter((_,i)=>isComplete(i)).length}/80</b><span>Level 1 episodes complete</span></div><div class="reviewStat"><b>${saved.length}</b><span>saved expressions</span></div><div class="reviewStat"><b>${streak}</b><span>day streak</span></div><div class="reviewStat"><b>${reviewWins}</b><span>review wins</span></div>`;
   $('#journeyBody').innerHTML=`<div class="journeyHero"><h3>Your Korean story so far</h3><p class="muted">Haneul is tracking what you watched, saved, missed and reviewed — without turning the drama into homework.</p><span class="sessionChip">${days.length} active days</span><span class="sessionChip">${Object.keys(m.seenWords||{}).length} words encountered</span><span class="sessionChip">${Object.keys(m.mastered||{}).length} lines mastered</span><div class="journeyBars"><div class="journeyBar"><div class="journeyBarTop"><b>Level 1 · First Encounters</b><span>${progressData(1).pct}%</span></div><div class="journeyTrack"><i style="width:${progressData(1).pct}%"></i></div><div class="episodeTrail">${trail(1)}</div></div><div class="journeyBar"><div class="journeyBarTop"><b>Level 2 · Everyday Connections</b><span>${progressData(2).pct}%</span></div><div class="journeyTrack"><i style="width:${progressData(2).pct}%"></i></div><div class="episodeTrail">${trail(2)}</div></div></div></div><div class="journeyChapter"><div class="nextChapter"><small>Next chapter</small><b>${esc(episodes[nextEi].short)}</b><span class="muted">Level ${levelOf(nextEi)} · Episode ${localEpisodeNo(nextEi)}</span><button onclick="episodeIndex=${nextEi};sceneIndex=0;saveState();renderScene();$('#journeyModal').classList.remove('open')">Continue story →</button></div><div class="storyPulse"><small>Last 7 days</small><b>${week.filter(x=>x.on).length} active day${week.filter(x=>x.on).length===1?'':'s'}</b><span class="muted">A simple rhythm check — no streak pressure.</span><div class="activityDots">${week.map(x=>`<i class="${x.on?'on':''} ${x.today?'today':''}" title="${x.key}"></i>`).join('')}</div></div></div>${wrong.length?`<h3 class="journeySectionTitle">Needs a little more attention</h3><p class="muted">These come directly from choices you missed in the story.</p><div class="weakList">${wrong.map(([line,count])=>{const r=findSceneByLine(line);return `<div class="weakItem"><b>${esc(line)}</b><small>${r?esc(r.s.meaning):'Review this expression'} · missed ${count} time${count===1?'':'s'}</small></div>`}).join('')}</div>`:`<div class="reviewEmpty"><h3>No weak areas yet ✨</h3><p class="muted">Keep playing and Haneul will personalize this automatically.</p></div>`}`
 }
 function findRecycleItem(){
@@ -414,12 +415,12 @@ function renderEpisodeList(){
   renderSeasonHub();updateReviewBadge();renderRecyclePrompt()
 }
 function renderSeasonHub(){
-  const totalCompleted=episodes.filter((_,i)=>isComplete(i)).length,m=getMemory();
-  $('#seasonStats').innerHTML=`<div class="statBox"><b>${totalCompleted}/${episodes.length}</b><span>episodes complete</span></div><div class="statBox"><b>${Object.keys(m.seenWords||{}).length}</b><span>unique words encountered</span></div><div class="statBox"><b>${Object.keys(m.mastered||{}).length}</b><span>lines mastered</span></div>`;
+  const totalCompleted=episodes.slice(0,LEVEL_SIZE).filter((_,i)=>isComplete(i)).length,m=getMemory();
+  $('#seasonStats').innerHTML=`<div class="statBox"><b>${totalCompleted}/${LEVEL1_TARGET}</b><span>Level 1 episodes complete</span></div><div class="statBox"><b>${Object.keys(m.seenWords||{}).length}</b><span>unique words encountered</span></div><div class="statBox"><b>${Object.keys(m.mastered||{}).length}</b><span>lines mastered</span></div>`;
   let html='';
-  [1,2].forEach(level=>{
+  [1].forEach(level=>{
     const start=levelStart(level), end=Math.min(start+LEVEL_SIZE,episodes.length);
-    html+=`<div style="grid-column:1/-1;margin-top:${level===1?'0':'12px'};padding:4px 2px"><div style="display:flex;justify-content:space-between;align-items:end;gap:12px"><div><b style="font-size:20px">Level ${level} · ${level===1?'First Encounters':'Everyday Connections'}</b><div style="font-size:12px;color:#7a8191;margin-top:3px">${level===1?'Build the foundations through simple real-life exchanges.':'Less English, more natural phrasing, opinions, directions and texting.'}</div></div><span class="pill">${progressData(level).pct}% complete</span></div></div>`;
+    html+=`<div style="grid-column:1/-1;margin-top:${level===1?'0':'12px'};padding:4px 2px"><div style="display:flex;justify-content:space-between;align-items:end;gap:12px"><div><b style="font-size:20px">Level ${level} · ${level===1?'KSI Beginner 1 · Arc 1':'Everyday Connections'}</b><div style="font-size:12px;color:#7a8191;margin-top:3px">${level===1?'Arc 1 is the current production batch inside an 80-episode Level 1 season.':'Less English, more natural phrasing, opinions, directions and texting.'}</div></div><span class="pill">${progressData(level).pct}% complete</span></div></div>`;
     html+=episodes.slice(start,end).map((e,j)=>{
       const i=start+j, locked=!isUnlocked(i), done=isComplete(i);
       return `<button class="seasonCard" data-season-episode="${i}" ${locked?'disabled':''}><span class="episodeBadge">${done?'Complete ✓':locked?'Locked':`L${level} · E${j+1}`}</span><img src="${e.image||''}" alt="${e.short}"><span class="seasonCardBody"><small>Level ${level} · Episode ${j+1}</small><b>${e.short}</b><span>${locked?(i===6?'Complete Level 1 to unlock.':'Finish the previous episode to unlock.'):done?'Replay or review this episode.':level===1?'Continue the Level 1 story.':'Continue the Level 2 story.'}</span></span></button>`
@@ -515,7 +516,7 @@ $('#nextScene').onclick=()=>{const e=currentEpisode();if(sceneIndex<e.scenes.len
   const level=levelOf(episodeIndex), localEp=localEpisodeNo(episodeIndex), lastInLevel=localEp===LEVEL_SIZE;
   if(lastInLevel){
     if(level===1){
-      $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Level 1 complete ✨</h3><p class="muted">You finished all six Level 1 episodes. <b>Level 2 · Everyday Connections</b> is now unlocked with texting, directions, opinions, restaurant Korean and more natural speech.</p><button onclick="openNextEpisode()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Start Level 2 →</button> <button onclick="openSeasonHub()" style="border:1px solid #dddff0;background:#fff;color:#5147d8;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Levels overview</button></div>`
+      $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Current Level 1 batch complete ✨</h3><p class="muted">You finished the six episodes currently published in Level 1. Level 1 is now planned as an 80-episode KSI-aligned season, so Episode 7 is the next production chapter instead of jumping to Level 2.</p><button onclick="openSeasonHub()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">View Level 1 plan →</button> <button onclick="openSeasonHub()" style="border:1px solid #dddff0;background:#fff;color:#5147d8;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Levels overview</button></div>`
     }else{
       $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Level 2 complete ✨</h3><p class="muted">You finished twelve connected episodes and moved from basic exchanges into more natural Korean for texting, food, directions, opinions and future plans.</p><button onclick="openSeasonHub()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Review Levels 1–2 →</button></div>`
     }
