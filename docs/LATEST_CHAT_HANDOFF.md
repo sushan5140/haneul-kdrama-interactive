@@ -75,3 +75,27 @@ Read:
 6. this file
 
 Then continue the first unfinished priority unless the user changes direction.
+
+
+## Latest production milestone — 2026-09-12
+
+Level 1 Arc 1 is now live in production.
+
+Active episodes:
+1. Arrival at Haneul
+2. The Name Tag Mix-Up
+3. Who’s New Here?
+4. First Introductions
+5. The Wrong Guess
+6. Student, Not Staff
+7. Guess Who?
+8. The Welcome Board
+
+Production deployment: `dpl_9DxrXWQBd4KzZzJmrcrbtWEzWVXw`
+
+Stable URL verified to serve the new Arc 1 source:
+https://haneul-kdrama-interactive.vercel.app
+
+Level 2 has been preserved as dormant source data and must remain untouched while Level 1 expands.
+
+Next target: Arc 2, Episodes 9–16, KSI Beginner 1 Lessons 3–4.
