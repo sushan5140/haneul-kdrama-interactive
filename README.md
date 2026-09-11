@@ -1,37 +1,49 @@
 # Haneul K-Drama Interactive
 
-Interactive Korean learning through story-driven K-drama scenes.
+Durable source of truth for the **Haneul K-Drama Interactive** project.
 
-## Live
+**Production:** https://haneul-kdrama-interactive.vercel.app
 
-https://haneul-kdrama-interactive.vercel.app
+## Every future chat starts here
 
-## Current source
+Read these before making changes:
 
-The current application is a single-file build in `index.html`.
+1. `AGENTS.md`
+2. `docs/CURRENT_STATE.md`
+3. `docs/PROJECT_RULES.md`
+4. `docs/CONTINUATION.md`
 
-This repository was created to replace chat-only / sandbox-only project state with durable GitHub source control.
+Then inspect `index.html` and the live deployment for the specific task.
 
-## Continuing the project in a new ChatGPT chat
+This repository exists so project continuity does not depend on one long ChatGPT conversation or temporary sandbox state.
 
-Read these first:
+## Canonical code
 
-1. `docs/PROJECT_MEMORY.md`
-2. `index.html`
+`index.html` is the latest captured Haneul K-Drama Interactive source from the project Library as of **2026-09-11**.
 
-Then inspect the current live deployment before making changes.
+## Infrastructure
 
-Important: this project is **independent from Haneul Video Lab**. Do not merge learner data, databases, or implementation context between them unless explicitly requested.
+- GitHub: `sushan5140/haneul-kdrama-interactive`
+- Vercel project: `haneul-kdrama-interactive`
+- Vercel project ID: `prj_oungX4pizKLxeyQzmnu0NdCTmmRr`
+- Stable URL: https://haneul-kdrama-interactive.vercel.app
+- Supabase project: `Haneul`
+- Supabase ref: `uyltjaftajwkujjhuric`
+- Region: `ap-south-1`
 
-## Deployment rule
+## Durable project memory
 
-Continue deploying to the existing Vercel project:
+- `docs/PROJECT_MEMORY.md`
+- `docs/CURRENT_STATE.md`
+- `docs/PROJECT_RULES.md`
+- `docs/ARCHITECTURE.md`
+- `docs/BACKEND_STATE.md`
+- `docs/CONTINUATION.md`
 
-- project: `haneul-kdrama-interactive`
-- stable URL: https://haneul-kdrama-interactive.vercel.app
+## Separation rule
 
-Do not create a replacement Vercel project for ordinary updates.
+This repository is for **Haneul K-Drama Interactive only**. Keep it independent from Haneul Video Lab, KMate, CTET Companion, and unrelated projects unless the user explicitly changes that rule.
 
 ## Security
 
-The browser source may contain public Supabase publishable configuration. Never commit Supabase service-role keys, private API keys, passwords, or other secrets.
+Never commit service-role keys, private API keys, passwords, access tokens, or other secrets.
