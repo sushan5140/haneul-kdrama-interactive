@@ -94,6 +94,19 @@ Still requires interactive end-to-end production verification:
 - strict no-cross-user-data behavior from the browser client
 - review-history write/read behavior
 
+
+## Cross-chat continuity
+
+Fresh-chat continuation was hardened on 2026-09-11.
+
+- Root entry point: `START_HERE.md`
+- New chats are instructed to load GitHub state instead of relying on old conversation history or sandbox paths.
+- Fresh chats must not ask the user to reconstruct prior context when the repository is accessible.
+- If the GitHub connector is unavailable, agents should use normal web access to read this public repository when possible.
+- `AGENTS.md`, `README.md`, and `docs/CONTINUATION.md` all point to the same deterministic bootstrap flow.
+
+This is now the canonical cross-chat recovery mechanism for Haneul K-Drama Interactive.
+
 ## Current continuation priorities
 
 Backend/account thread:
