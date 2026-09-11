@@ -6,16 +6,20 @@ Durable source of truth for the **Haneul K-Drama Interactive** project.
 
 ## Every future chat starts here
 
-Read these before making changes:
+Read **`START_HERE.md` first**. It defines the mandatory fresh-chat takeover protocol so continuity does not depend on old conversations or temporary sandbox state.
+
+Then read:
 
 1. `AGENTS.md`
 2. `docs/CURRENT_STATE.md`
 3. `docs/PROJECT_RULES.md`
 4. `docs/CONTINUATION.md`
 
-Then inspect `index.html` and the live deployment for the specific task.
+Then inspect only the relevant source and live infrastructure for the requested task.
 
-This repository exists so project continuity does not depend on one long ChatGPT conversation or temporary sandbox state.
+### Minimal fresh-chat prompt
+
+`Continue Haneul K-Drama Interactive from sushan5140/haneul-kdrama-interactive. Read START_HERE.md first and follow its fresh-chat bootstrap protocol, then continue my requested task.`
 
 ## Canonical code
 
@@ -33,6 +37,7 @@ This repository exists so project continuity does not depend on one long ChatGPT
 
 ## Durable project memory
 
+- `START_HERE.md`
 - `docs/PROJECT_MEMORY.md`
 - `docs/CURRENT_STATE.md`
 - `docs/PROJECT_RULES.md`
