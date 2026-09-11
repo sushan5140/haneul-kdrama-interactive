@@ -203,3 +203,29 @@ Structure:
 - 8 episodes per arc
 
 Implementation now proceeds from the architecture/migration step, starting with Arc 1 and reusing the existing six Level 1 episodes where they fit.
+
+
+## Level 1 source migration checkpoint
+
+Updated: **2026-09-12**
+
+Implementation commit:
+- `56bae0174b5938e1a27532edfc4e1f5a887ee693`
+
+What changed in the real app source:
+- Level 1 now has a fixed UI/progress target of **80 episodes**.
+- the Levels overview is Level 1-first and labels the current content as KSI Beginner 1 / Arc 1.
+- Level 2 is no longer displayed in the Levels overview during this phase.
+- existing Level 2 source content is preserved rather than deleted.
+- Level 2 progression is blocked; completing current Episode 6 no longer unlocks Level 2.
+- completing Episode 6 now explains that Episode 7 is the next Level 1 production chapter.
+- My Drama Journey now counts Level 1 progress against 80 episodes.
+
+Important remaining migration work:
+- current Episodes 1–6 were written before the fixed KSI 80-episode map and do not yet fully match the new Arc 1 curriculum sequence.
+- migrate/rewrite those six scripts while preserving useful dialogue, visuals, state logic, review behavior, and learner data.
+- then create Episodes 7–8 to finish Arc 1.
+- after Arc 1 content is aligned and verified, replace the temporary six-episode indexing assumptions with durable episode metadata before scaling through Episodes 9–80.
+
+Canonical map:
+- `docs/LEVEL_1_80_EPISODE_MAP.md`
