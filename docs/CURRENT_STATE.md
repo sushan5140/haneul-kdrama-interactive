@@ -188,3 +188,18 @@ The user explicitly removed any artificial content cap: Level 1 may become very 
 Canonical design: `docs/LEVEL_1_MASTERPLAN.md`
 
 Level 2 should not be used to hold beginner material that belongs in Level 1.
+
+
+## Canonical Level 1 episode map
+
+The fixed 80-episode Level 1 production map is now defined at:
+
+- `docs/LEVEL_1_80_EPISODE_MAP.md`
+
+Structure:
+- 20 current Online KSI Beginner 1 curriculum units
+- 4 Haneul episodes per unit
+- 10 connected arcs
+- 8 episodes per arc
+
+Implementation now proceeds from the architecture/migration step, starting with Arc 1 and reusing the existing six Level 1 episodes where they fit.
