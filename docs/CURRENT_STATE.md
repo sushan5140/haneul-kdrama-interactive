@@ -7,7 +7,7 @@ Last refreshed: **2026-09-11**
 - Vercel project: `haneul-kdrama-interactive`
 - Project ID: `prj_oungX4pizKLxeyQzmnu0NdCTmmRr`
 - Team ID: `team_2qP7AnUVZ2NnshuJiNVh464v`
-- Latest observed production deployment: `dpl_6bc6Hatk8vUKmzHw2HhDpL8NwePW`
+- Latest observed production deployment: `dpl_Dzy8nogfmX9bmEJBVK5dYkJjvdsV`
 - State: `READY`
 - Target: `production`
 
@@ -53,6 +53,10 @@ Observed ownership policy pattern:
 - policies enforce both existing-row access and inserted/updated-row ownership
 
 The same Supabase project also contains `content_candidates` and `content_pipeline_runs`. Those are not K-Drama learner-persistence tables and K-Drama code must not start depending on them.
+
+## Deployment blocker resolved
+
+The previous connector payload blocker is resolved. On 2026-09-11 the canonical ~2.4 MB backend-enabled build was streamed directly into the existing Vercel project and verified on the stable production domain with HTTP 200. The stable URL serves the auth/Supabase-enabled build.
 
 ## Implemented vs verified
 
