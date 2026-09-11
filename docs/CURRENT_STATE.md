@@ -177,3 +177,14 @@ This is now the canonical cross-chat recovery mechanism for Haneul K-Drama Inter
 The user explicitly changed the sequencing on 2026-09-12: **finish Level 1 completely first, then move to Level 2**. One short story is not enough for Level 1; it should cover the important beginner foundations through multiple connected story arcs.
 
 Canonical Level 1 expansion plan: `docs/LEVEL_1_PLAN.md`.
+
+
+## Level 1 expansion decision
+
+Level 1 is now the primary product focus before Level 2 expansion.
+
+The user explicitly removed any artificial content cap: Level 1 may become very large if each episode adds genuine learning, story, repetition, mastery, or review value.
+
+Canonical design: `docs/LEVEL_1_MASTERPLAN.md`
+
+Level 2 should not be used to hold beginner material that belongs in Level 1.
