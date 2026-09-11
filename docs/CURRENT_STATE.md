@@ -7,10 +7,10 @@ Last refreshed: **2026-09-11**
 - Vercel project: `haneul-kdrama-interactive`
 - Project ID: `prj_oungX4pizKLxeyQzmnu0NdCTmmRr`
 - Team ID: `team_2qP7AnUVZ2NnshuJiNVh464v`
-- Latest observed production deployment: `dpl_Dzy8nogfmX9bmEJBVK5dYkJjvdsV`
+- Latest observed production deployment: `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk`
 - State: `READY`
 - Target: `production`
-- Stable production URL returned HTTP 200 during continuation verification on 2026-09-11.
+- Stable production URL returned HTTP 200 during continuation verification on 2026-09-11 after the auth-state hardening deployment.
 
 READY plus HTTP 200 proves Vercel served the deployment; it does not by itself prove all auth/sync behavior.
 
@@ -20,7 +20,7 @@ READY plus HTTP 200 proves Vercel served the deployment; it does not by itself p
 - Library version observed: `23`
 - Captured 2026-09-11
 
-The GitHub blob matches that source exactly except for a single trailing newline byte.
+The GitHub source now contains the production auth-state hardening commit `090c9d14f240d10016ef2fc246e8f5594756a2d2`.
 
 ## Product state
 - Level 1: 6 episodes
@@ -60,6 +60,16 @@ The same Supabase project also contains `content_candidates` and `content_pipeli
 ## Deployment blocker resolved
 
 The previous connector payload blocker is resolved. On 2026-09-11 the canonical ~2.4 MB backend-enabled build was streamed directly into the existing Vercel project and verified on the stable production domain with HTTP 200. The stable URL serves the auth/Supabase-enabled build.
+
+## Auth-state hardening deployed
+
+On 2026-09-11 the production auth client was hardened after comparing the live code with current Supabase guidance:
+- `onAuthStateChange` no longer performs async Supabase work directly inside the callback; the work is deferred until after the callback returns
+- signed-out auth events now move the browser into the isolated guest learner state while preserving the signed-in user's local snapshot
+- manual sign-out now uses `{ scope: 'local' }` so signing out this browser does not intentionally revoke sessions on the learner's other devices
+- production deployment: `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk`
+- stable URL verified HTTP 200 and confirmed to serve the patched auth code
+- Vercel runtime-error scan after deployment returned no grouped runtime errors
 
 ## Implemented vs verified
 
