@@ -98,5 +98,20 @@ Also present:
 
 They use no-direct-access style RLS and are out of scope for K-Drama learner persistence.
 
+## Auth client hardening — 2026-09-11
+
+Production source commit: `090c9d14f240d10016ef2fc246e8f5594756a2d2`
+
+Deployed fixes:
+- auth state changes are handled outside the immediate `onAuthStateChange` callback to avoid the documented `supabase-js` async-callback deadlock class
+- `SIGNED_OUT` transitions learner state to the isolated guest snapshot instead of leaving the previous signed-in learner state exposed as a guest
+- manual browser sign-out uses Supabase local scope so it does not intentionally sign the learner out on every device
+
+Verified after deployment:
+- Vercel deployment `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk` is READY and production
+- official stable alias serves the patched source with HTTP 200
+- no grouped Vercel runtime errors were observed in the post-deploy scan
+- Supabase security advisor returned no security lints
+
 ## Still needs product-level verification
 The schema and policies were inspected, but real-session behavior still needs testing for signup, login, refresh, sync, hydration, account switching, and strict isolation.
