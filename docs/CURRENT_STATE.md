@@ -303,3 +303,28 @@ Proceed with **Arc 2 — Things We Like, Places We Know**:
 - preserve Arc 1 progress/review compatibility
 - keep Level 2 dormant until the Level 1 rebuild is complete
 - Google OAuth remains final-stage work
+
+
+## Review-unlocked production mode
+
+Updated 2026-09-12.
+
+For active development/review, all currently available episodes are directly open. Learners/reviewers do not need to complete earlier episodes first.
+
+Implementation:
+- `REVIEW_ALL_EPISODES = true`
+- normal completion/progression state is still preserved underneath
+- `isLocked()` now resolves from the same review-aware unlock function
+- startup/session restoration no longer rejects a later episode merely because prior episodes are incomplete
+
+GitHub commit:
+- `826d5610d9fe72111291c151d298e54399d6d8db`
+
+Production deployment:
+- `dpl_AdfqheRAGCdnDtr7fAh9dye1uokC`
+- state: READY
+- stable URL: https://haneul-kdrama-interactive.vercel.app
+
+Live HTML verification confirmed the review flag, unlock path, and Level 1 arc architecture are present on the stable production URL.
+
+This review override is temporary product-development behavior. It can be switched off later when normal learner progression should be enforced again.
