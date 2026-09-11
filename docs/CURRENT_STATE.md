@@ -7,7 +7,7 @@ Last refreshed: **2026-09-11**
 - Vercel project: `haneul-kdrama-interactive`
 - Project ID: `prj_oungX4pizKLxeyQzmnu0NdCTmmRr`
 - Team ID: `team_2qP7AnUVZ2NnshuJiNVh464v`
-- Latest observed production deployment: `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk`
+- Latest observed production deployment: `dpl_CAP73AHhoVE1UrGP5meCXJAt5mT2`
 - State: `READY`
 - Target: `production`
 - Stable production URL returned HTTP 200 during continuation verification on 2026-09-11 after the auth-state hardening deployment.
@@ -20,7 +20,7 @@ READY plus HTTP 200 proves Vercel served the deployment; it does not by itself p
 - Library version observed: `23`
 - Captured 2026-09-11
 
-The GitHub source now contains the production auth-state hardening commit `090c9d14f240d10016ef2fc246e8f5594756a2d2`.
+The current GitHub app source is commit `98fe156d8892918349ad6a015595b990708b501d` with `index.html` blob `164188fe7d150c4470b9067e0db7634d7c757717`.
 
 ## Product state
 - Level 1: 6 episodes
@@ -57,9 +57,23 @@ This confirms row ownership is enforced in the database for existing and inserte
 
 The same Supabase project also contains `content_candidates` and `content_pipeline_runs`. Those are not K-Drama learner-persistence tables and K-Drama code must not start depending on them.
 
-## Deployment blocker resolved
+## Deployment/source correspondence
 
-The previous connector payload blocker is resolved. On 2026-09-11 the canonical ~2.4 MB backend-enabled build was streamed directly into the existing Vercel project and verified on the stable production domain with HTTP 200. The stable URL serves the auth/Supabase-enabled build.
+The previous connector payload blocker is resolved, but a second deployment lesson was discovered on 2026-09-11: a Vercel deployment can be `READY` while the stable URL is still serving an older uploaded source.
+
+Observed stale case:
+- deployment `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk` was READY/production
+- stable URL still served the older 2,448,889-byte build
+
+Current verified deployment path:
+- deploy the exact current GitHub `index.html` blob directly to the existing Vercel project
+- verify the stable URL after deployment instead of trusting READY alone
+- current production deployment: `dpl_CAP73AHhoVE1UrGP5meCXJAt5mT2`
+- stable URL serves HTTP 200
+- served length: 2,452,229 bytes, matching the current GitHub source
+- deployed source contains the new pending-review, auth-queue, and pre-switch flush markers
+
+Do not assume a GitHub push alone updates production until source correspondence is verified.
 
 ## Auth-state hardening deployed
 
@@ -70,6 +84,29 @@ On 2026-09-11 the production auth client was hardened after comparing the live c
 - production deployment: `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk`
 - stable URL verified HTTP 200 and confirmed to serve the patched auth code
 - Vercel runtime-error scan after deployment returned no grouped runtime errors
+
+## Sync race and review durability hardening
+
+On 2026-09-11 source commit `98fe156d8892918349ad6a015595b990708b501d` added a second account/sync hardening pass:
+- in-flight cloud syncs are now awaited instead of being skipped during sign-out/account switching
+- auth events are serialized through a queue
+- different-user activation waits for prior activation/sync work before changing local learner ownership
+- pending sync requests raised while the cloud layer is busy are queued for a follow-up sync
+- sign-in/sign-up from an already signed-in browser flushes and snapshots the current learner first
+- review outcomes are persisted to a local pending queue with stable client-generated IDs
+- review-history uploads use idempotent upsert by `id`, so retrying a failed upload does not intentionally duplicate the same queued event
+- first cloud backup can reconstruct pending review events from existing local review aggregates
+- per-user local snapshots continue to isolate pending review data across account switches
+
+Production verification:
+- deployment: `dpl_CAP73AHhoVE1UrGP5meCXJAt5mT2`
+- stable URL: HTTP 200
+- current source length and hardening markers matched the GitHub blob
+- Vercel grouped runtime-error scan: no runtime errors found
+- Supabase security advisor: no security lints
+- required unique upsert indexes were verified for `episode_progress(user_id,level,episode)`, `vocabulary_state(user_id,token)`, `line_state(user_id,line_key)`, plus the `activity_days` composite primary key
+
+This is source/infrastructure verification, not a substitute for the remaining interactive multi-account browser matrix.
 
 ## Implemented vs verified
 
@@ -92,6 +129,7 @@ Verified in live infrastructure:
 - dedicated Supabase project is ACTIVE_HEALTHY
 - all seven learner tables have RLS enabled
 - all seven learner-table policies enforce `auth.uid() = user_id` for both access and write ownership
+- client upsert conflict keys are backed by live unique indexes/primary keys
 
 Still requires interactive end-to-end production verification:
 - brand-new signup
