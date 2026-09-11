@@ -157,20 +157,22 @@ This is now the canonical cross-chat recovery mechanism for Haneul K-Drama Inter
 
 ## Current continuation priorities
 
-Backend/account thread:
-1. run the interactive auth matrix against production
-2. verify persistence/cross-device sync
-3. verify two-user isolation from the browser client
-4. fix any auth/sync defects found
-5. keep backend state reproducible in GitHub
-6. Account/Sync polish
-7. My Drama Journey
-8. Personalized Review
+### Product/story expansion — now the main track
+1. finish Level 2 visual continuity and scene-image switching
+2. expand the story system beyond the current 2 levels
+3. design Levels 3–5 as a connected K-drama arc with recurring characters
+4. introduce controlled branching with short consequence scenes that rejoin the main plot
+5. strengthen cross-episode vocabulary recycling and contextual review
+6. deepen My Drama Journey so it reflects story choices, learned lines, mastery, and completed arcs
+7. polish Personalized Review using actual mistakes and scene history
+8. add richer progression/unlocks without turning the app into a generic game
 
-Visual/story thread when requested:
-1. Level 2 visual continuity
-2. 2–3 visual states per episode
-3. scene image switching
-4. controlled short branching
-5. review/journey polish
-6. Level 3 later
+### Backend/account track — secondary until product expansion is stronger
+1. preserve the existing email/password auth and Supabase sync implementation
+2. fix any critical persistence/auth defects found during normal use
+3. complete the full interactive auth/session/sync verification matrix before final release
+4. **Google OAuth/login is intentionally deferred to the very end of the project**
+5. do not prioritize OAuth setup ahead of story/level expansion unless the user changes direction
+
+### Story direction
+The user explicitly wants Haneul taken to the next level with additional connected stories and levels before final auth polish.
