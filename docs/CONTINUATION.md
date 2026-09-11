@@ -41,7 +41,7 @@ Do not ask the user to paste the entire old conversation when the repository is 
 Auth/sync code exists and learner tables/RLS exist.
 
 Verification sequence:
-1. ensure production corresponds to the intended GitHub source
+1. production/source correspondence is currently verified for commit `090c9d1` and deployment `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk`
 2. fresh signup
 3. returning login
 4. logout/login
