@@ -40,8 +40,13 @@ Do not ask the user to paste the entire old conversation when the repository is 
 ## Backend continuation
 Auth/sync code exists and learner tables/RLS exist.
 
+Deployment rule learned on 2026-09-11:
+- Vercel `READY` alone is not source verification
+- a prior READY production deployment still served the older build
+- for backend iterations, deploy the exact GitHub blob and then verify the stable URL content/markers before calling production current
+
 Verification sequence:
-1. production/source correspondence is currently verified for commit `090c9d1` and deployment `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk`
+1. production/source correspondence is currently verified for source commit `98fe156` and deployment `dpl_CAP73AHhoVE1UrGP5meCXJAt5mT2`
 2. fresh signup
 3. returning login
 4. logout/login
