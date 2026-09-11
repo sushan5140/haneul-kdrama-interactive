@@ -98,18 +98,32 @@ Also present:
 
 They use no-direct-access style RLS and are out of scope for K-Drama learner persistence.
 
+## Verified upsert constraints
+
+Live unique indexes/keys required by the client were re-verified on 2026-09-11:
+- `episode_progress(user_id, level, episode)` unique
+- `vocabulary_state(user_id, token)` unique
+- `line_state(user_id, line_key)` unique
+- `activity_days(user_id, activity_date)` composite primary key
+
+Supabase security advisor returned no security lints.
+
 ## Auth client hardening — 2026-09-11
 
-Production source commit: `090c9d14f240d10016ef2fc246e8f5594756a2d2`
+Production source commit: `98fe156d8892918349ad6a015595b990708b501d`
 
 Deployed fixes:
+- review events are queued locally with stable IDs and uploaded idempotently through `review_history.id`
+- account switching waits for in-flight sync/activation work and queues follow-up syncs instead of silently dropping changes
+- sign-in/sign-up flushes the current signed-in learner before switching identity
 - auth state changes are handled outside the immediate `onAuthStateChange` callback to avoid the documented `supabase-js` async-callback deadlock class
 - `SIGNED_OUT` transitions learner state to the isolated guest snapshot instead of leaving the previous signed-in learner state exposed as a guest
 - manual browser sign-out uses Supabase local scope so it does not intentionally sign the learner out on every device
 
 Verified after deployment:
-- Vercel deployment `dpl_4FWNuovrq4SVgLKycoR95hX3gQzk` is READY and production
-- official stable alias serves the patched source with HTTP 200
+- Vercel deployment `dpl_CAP73AHhoVE1UrGP5meCXJAt5mT2` is READY and production
+- official stable alias serves the current GitHub blob with HTTP 200
+- served source length is 2,452,229 bytes and contains the queued-review/auth-serialization hardening markers
 - no grouped Vercel runtime errors were observed in the post-deploy scan
 - Supabase security advisor returned no security lints
 
