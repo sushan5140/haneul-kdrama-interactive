@@ -235,3 +235,58 @@ Do not require perfect mastery of every item.
 The purpose is not to keep learners trapped in Level 1.
 
 The purpose is to make Level 1 complete enough that moving to Level 2 actually feels earned and noticeably different.
+
+
+## Fixed Level 1 size — 80 full episodes
+
+Haneul Level 1 is fixed at **80 full story episodes**.
+
+Basis:
+- The current Online King Sejong Institute Beginner 1 curriculum is divided into Beginner 1A and Beginner 1B.
+- Beginner 1A contains 10 core lessons.
+- Beginner 1B continues with lessons 11–20.
+- Haneul therefore treats KSI Beginner 1 as 20 core curriculum units.
+
+Haneul expands each core KSI unit into **4 meaningful story episodes**:
+
+1. **Encounter** — introduce the communicative situation and target Korean naturally inside the drama.
+2. **Expansion** — widen the same language into a different but connected situation.
+3. **Active Use** — learner choices, listening, replies, and practical use with reduced support.
+4. **Recycle / Checkpoint** — bring back the new material plus older Level 1 language inside the story.
+
+20 curriculum units × 4 episodes = **80 episodes**.
+
+This is the fixed Level 1 count unless a future curriculum revision materially changes the learning scope.
+
+### Important distinction
+
+The 80 number applies to full story episodes only.
+
+It does **not** cap:
+- scene count
+- dialogue turns
+- learner reply choices
+- listening repetitions
+- vocabulary encounters
+- Personalized Review items
+- saved-dialogue practice
+- micro-consequence scenes
+- story callbacks
+- optional challenge/review interactions
+
+Therefore Level 1 can still contain hundreds or thousands of meaningful learning interactions while remaining a clean 80-episode season.
+
+### Curriculum boundary
+
+Level 1 should cover the KSI Beginner 1 learning scope faithfully, but Haneul is not a textbook clone.
+
+KSI defines the language-learning boundary. Haneul transforms that scope into:
+- connected K-drama stories
+- recurring characters and locations
+- contextual listening
+- meaningful learner choices
+- spaced recycling
+- adaptive review
+- gradual reduction of English support
+
+Do not move a Beginner 1 competency into Level 2 merely to keep Level 1 shorter.
