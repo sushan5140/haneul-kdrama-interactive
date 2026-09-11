@@ -229,3 +229,33 @@ Important remaining migration work:
 
 Canonical map:
 - `docs/LEVEL_1_80_EPISODE_MAP.md`
+
+
+## Level 1 Arc 1 implementation checkpoint — 2026-09-12
+
+Implemented in GitHub source:
+- added the 10-arc / 80-episode Level 1 navigation model
+- rebuilt Level 1 Episodes 1–6 in place around KSI Beginner 1 Lessons 1–2
+- preserved the existing Level 1 artwork and working scene/review/progress mechanics
+- preserved all six existing Level 2 episode objects untouched
+
+Current rebuilt episodes:
+1. Arrival at Haneul
+2. The Name Tag Mix-Up
+3. Who’s New Here?
+4. First Introductions
+5. The Wrong Guess
+6. Student, Not Staff
+
+Arc 1 still needs Episodes 7–8 before it is complete.
+
+Important implementation constraint:
+- Level 2 currently occupies array indexes 6–11 and has index-bound artwork and controlled branch reactions.
+- Adding Level 1 Episodes 7–8 requires a deliberate index migration for Level 2 rather than simply inserting two objects.
+- Do not insert Episodes 7–8 until the Level 2 index references, image assignments, progression helpers, local/cloud episode mapping, and branch-reaction keys are migrated together.
+
+Source commits:
+- ten-arc navigation model: `576dd65e2d6cb64687aba0b490e422d67c4df82d`
+- rebuilt Episodes 1–6: `4243454fdf7d9a648b441066a86052148269d9c6`
+
+This source checkpoint has not yet been claimed as production-verified.
