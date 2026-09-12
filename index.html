@@ -489,10 +489,12 @@ $('#subtitleBar').onclick=e=>{const b=e.target.closest('.modeBtn');if(!b)return;
 $('#prevScene').onclick=()=>{if(sceneIndex>0){sceneIndex--;renderScene();window.scrollTo({top:0,behavior:'smooth'})}};
 $('#nextScene').onclick=()=>{const e=currentEpisode();if(sceneIndex<e.scenes.length-1){sceneIndex++;renderScene();window.scrollTo({top:0,behavior:'smooth'})}else{
   localStorage.setItem(`haneul-kdrama-episode${episodeIndex+1}`,'complete');renderEpisodeList();scheduleCloudSync(100);
-  const level=levelOf(episodeIndex), localEp=localEpisodeNo(episodeIndex), lastInLevel=localEp===LEVEL_SIZE;
-  if(lastInLevel){
+  const level=levelOf(episodeIndex), localEp=localEpisodeNo(episodeIndex), lastInLevel=localEp===LEVEL_SIZE, lastPublished=episodeIndex===episodes.length-1;
+  if(level===1&&lastPublished&&!lastInLevel){
+    $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Arc 1 complete ✨</h3><p class="muted">You finished all 8 currently published Level 1 episodes. Your progress and review memory are saved. Arc 2 · <b>Things We Like, Places We Know</b> is the next production batch.</p><button onclick="openSeasonHub()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Review Level 1 →</button></div>`
+  }else if(lastInLevel){
     if(level===1){
-      $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Current Level 1 batch complete ✨</h3><p class="muted">You finished the six episodes currently published in Level 1. Level 1 is now planned as an 80-episode KSI-aligned season, so Episode 7 is the next production chapter instead of jumping to Level 2.</p><button onclick="openSeasonHub()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">View Level 1 plan →</button> <button onclick="openSeasonHub()" style="border:1px solid #dddff0;background:#fff;color:#5147d8;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Levels overview</button></div>`
+      $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Current Level 1 batch complete ✨</h3><p class="muted">You finished the full 80-episode KSI-aligned Level 1 season. Your beginner foundation is complete and Level 2 is now the next stage.</p><button onclick="openSeasonHub()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">View Level 1 plan →</button> <button onclick="openSeasonHub()" style="border:1px solid #dddff0;background:#fff;color:#5147d8;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Levels overview</button></div>`
     }else{
       $('#tabPanel').innerHTML=`<div class="completeCard"><h3>Level 2 complete ✨</h3><p class="muted">You finished twelve connected episodes and moved from basic exchanges into more natural Korean for texting, food, directions, opinions and future plans.</p><button onclick="openSeasonHub()" style="border:0;background:#6757f6;color:#fff;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer">Review Levels 1–2 →</button></div>`
     }
