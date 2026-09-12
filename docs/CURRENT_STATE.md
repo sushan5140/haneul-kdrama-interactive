@@ -347,3 +347,30 @@ Correction applied in source commit `a878eb5d0d3c08dd436befcb4ad402963f045a16`:
 Future rule:
 - never assign an existing episode image to new story content without checking that the depicted location/action matches the new scene.
 - when a new scene materially changes location/action, prefer scene-specific artwork rather than semantic mismatch.
+
+
+## Production checkpoint — Arc 1 visual/context fix live
+
+Updated: **2026-09-12**
+
+Source fixes:
+- visual/context alignment commit: `a878eb5d0d3c08dd436befcb4ad402963f045a16`
+- Episode 8 completion edge-case commit: `d8aaef06147883bc273467c6742c7f5829513685`
+
+Live production:
+- deployment: `dpl_AUvpQaxCThe5TosBd5m4YNQRsMVD`
+- target: production
+- state: READY
+- stable URL: https://haneul-kdrama-interactive.vercel.app
+
+Verified live markers:
+- Episode 7 context references the campus convenience store shown by its reused artwork
+- Episode 8 title is **The Profile Card Check**
+- Episode 8 story is set at the orientation table shown by its reused artwork
+- Arc 1 completion screen exists for the current 8-episode published batch
+- future full-80 completion copy is corrected
+- Vercel runtime-error scan for the last hour returned no grouped runtime errors
+
+Important:
+- this fix deliberately changed story context to match the available artwork because the attempted six-image regeneration path would have required a paid image-generation balance; credits were not spent silently.
+- future episodes must not reuse old artwork without checking location/action compatibility first.
