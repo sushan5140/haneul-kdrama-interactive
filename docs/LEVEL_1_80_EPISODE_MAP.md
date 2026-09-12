@@ -93,8 +93,8 @@ Theme: identity, introductions, who someone is / is not
 - Learner identifies people from simple descriptions.
 - Reply choices require correcting wrong assumptions.
 
-**Episode 8 — The Welcome Board**
-- The group prepares a simple introduction board.
+**Episode 8 — The Profile Card Check**
+- Seoyeon and Minjun review printed introduction cards together at the orientation table.
 - Recycles Lessons 1–2 together.
 - Arc 1 checkpoint.
 
