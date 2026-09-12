@@ -251,7 +251,7 @@ Active Arc 1 episodes:
 5. The Wrong Guess
 6. Student, Not Staff
 7. Guess Who?
-8. The Welcome Board
+8. The Profile Card Check
 
 Arc 1 now covers KSI Beginner 1 Lessons 1–2 and is structurally complete.
 
@@ -328,3 +328,22 @@ Production deployment:
 Live HTML verification confirmed the review flag, unlock path, and Level 1 arc architecture are present on the stable production URL.
 
 This review override is temporary product-development behavior. It can be switched off later when normal learner progression should be enforced again.
+
+
+## Arc 1 visual-context correction — 2026-09-12
+
+User review found that the newly added Episodes 7–8 reused older artwork whose depicted situations did not match the new story text.
+
+Root cause:
+- Episode 7 reused the old `Convenience Store Stop` artwork.
+- Episode 8 reused the old `First Encounter` table artwork.
+
+Correction applied in source commit `a878eb5d0d3c08dd436befcb4ad402963f045a16`:
+- Episode 7 remains **Guess Who?**, but its Lesson 2 identity-guessing practice now takes place naturally in the campus convenience store shown by the artwork.
+- Episode 8 is now **The Profile Card Check**; Seoyeon and Minjun review printed introduction cards together at the orientation table shown by the artwork.
+- KSI Lesson 2 learning targets, Korean identity/correction language, review logic, and Arc 1 progression are preserved.
+- The story was changed to match the visuals rather than pretending unrelated reused images depicted an orientation room/welcome board.
+
+Future rule:
+- never assign an existing episode image to new story content without checking that the depicted location/action matches the new scene.
+- when a new scene materially changes location/action, prefer scene-specific artwork rather than semantic mismatch.
