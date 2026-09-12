@@ -89,7 +89,7 @@ Active episodes:
 5. The Wrong Guess
 6. Student, Not Staff
 7. Guess Who?
-8. The Welcome Board
+8. The Profile Card Check
 
 Production deployment: `dpl_9DxrXWQBd4KzZzJmrcrbtWEzWVXw`
 
@@ -99,3 +99,24 @@ https://haneul-kdrama-interactive.vercel.app
 Level 2 has been preserved as dormant source data and must remain untouched while Level 1 expands.
 
 Next target: Arc 2, Episodes 9–16, KSI Beginner 1 Lessons 3–4.
+
+
+## Latest visual-context fix — 2026-09-12
+
+User review identified that Episodes 7–8 had story/image mismatch because new Arc 1 scripts were reusing old artwork.
+
+Fixed in GitHub source commit:
+- `a878eb5d0d3c08dd436befcb4ad402963f045a16`
+
+Episode 7:
+- reused image source: old Convenience Store Stop
+- corrected story setting: campus convenience store identity-guessing practice
+- KSI Lesson 2 target preserved
+
+Episode 8:
+- reused image source: old First Encounter table scene
+- renamed to **The Profile Card Check**
+- corrected setting: printed introduction cards reviewed at the orientation table
+- KSI Lesson 2 / Arc 1 checkpoint preserved
+
+Do not reuse old artwork for future episodes unless its location/action has been checked against the new story context.
