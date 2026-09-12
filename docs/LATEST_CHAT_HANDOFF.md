@@ -120,3 +120,23 @@ Episode 8:
 - KSI Lesson 2 / Arc 1 checkpoint preserved
 
 Do not reuse old artwork for future episodes unless its location/action has been checked against the new story context.
+
+
+## Current live checkpoint — 2026-09-12
+
+Production deployment:
+- `dpl_AUvpQaxCThe5TosBd5m4YNQRsMVD`
+- READY / production
+- stable URL verified
+
+Latest source fixes:
+- `a878eb5d0d3c08dd436befcb4ad402963f045a16` — align Episodes 7–8 story settings with the reused artwork
+- `d8aaef06147883bc273467c6742c7f5829513685` — prevent Episode 8 completion from referencing nonexistent Episode 9 before Arc 2 is built
+
+Live verification:
+- Episode 7 campus convenience-store context present
+- Episode 8 **The Profile Card Check** present
+- current Arc 1 completion state present
+- no grouped Vercel runtime errors in the last-hour scan
+
+Next product work remains Arc 2 / Episodes 9–16 after user review of the corrected Arc 1.
