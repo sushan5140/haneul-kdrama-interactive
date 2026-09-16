@@ -486,8 +486,8 @@ $('#slowHear').onclick=()=>speakCurrent('slow');
 $('#saveLine').onclick=toggleSaveLine;
 $('#sceneLine').onclick=revealChallengeLine;
 $('#subtitleBar').onclick=e=>{const b=e.target.closest('.modeBtn');if(!b)return;subtitleMode=b.dataset.mode;localStorage.setItem('haneul-kdrama-subtitle-mode',subtitleMode);applySubtitleMode();scheduleCloudSync();};
-$('#prevScene').onclick=()=>{if(sceneIndex>0){sceneIndex--;renderScene();window.scrollTo({top:0,behavior:'smooth'})}};
-$('#nextScene').onclick=()=>{const e=currentEpisode();if(sceneIndex<e.scenes.length-1){sceneIndex++;renderScene();window.scrollTo({top:0,behavior:'smooth'})}else{
+$('#prevScene').onclick=()=>{if(sceneIndex>0){sceneIndex--;renderScene()}};
+$('#nextScene').onclick=()=>{const e=currentEpisode();if(sceneIndex<e.scenes.length-1){sceneIndex++;renderScene()}else{
   localStorage.setItem(`haneul-kdrama-episode${episodeIndex+1}`,'complete');renderEpisodeList();scheduleCloudSync(100);
   const level=levelOf(episodeIndex), localEp=localEpisodeNo(episodeIndex), lastInLevel=localEp===LEVEL_SIZE, lastPublished=episodeIndex===episodes.length-1;
   if(level===1&&lastPublished&&!lastInLevel){
