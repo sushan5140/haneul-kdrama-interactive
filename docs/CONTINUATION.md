@@ -60,12 +60,14 @@ Verification sequence:
 ## Visual/story continuation
 When the user returns to story/visual work:
 - preserve the light UI
-- improve Level 2 visual continuity
-- use 2–3 meaningful visuals per episode
-- switch visuals at story beats
-- use controlled short branching
-- polish review/journey
-- Level 3 later
+- finish Level 1 before resuming active Level 2 development
+- Arc 1 (Episodes 1–8) is live
+- Arc 2 (Episodes 9–16) is implemented in GitHub at commit `10ea178570ae268cc8148d0b170ba4bfc2197833`; verify/deploy it to production before calling it live
+- after Arc 2 production verification, continue Arc 3 — **Rainy Days & Messages** (Episodes 17–24, KSI Beginner 1 Lessons 5–6)
+- preserve existing progress/review compatibility and review-unlocked development mode
+- use scene visuals only when their depicted location/action matches the story; do not spend paid image-generation credits silently
+- keep preserved Level 2 source dormant until the Level 1 rebuild is complete
+- Google OAuth remains final-stage work
 
 ## Legacy handoff
 Older historical decisions are preserved in `docs/LEGACY_HANDOFF.md` once added. Infrastructure statements in old handoffs can be stale.
