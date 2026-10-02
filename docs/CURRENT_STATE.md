@@ -374,3 +374,45 @@ Verified live markers:
 Important:
 - this fix deliberately changed story context to match the available artwork because the attempted six-image regeneration path would have required a paid image-generation balance; credits were not spent silently.
 - future episodes must not reuse old artwork without checking location/action compatibility first.
+
+
+## Level 1 Arc 2 implementation checkpoint — 2026-10-02
+
+Implemented in GitHub source:
+- source commit: `10ea178570ae268cc8148d0b170ba4bfc2197833`
+- active Level 1 now contains Episodes 1–16 in source
+- added Arc 2 — **Things We Like, Places We Know**
+- added 8 episodes / 48 scenes covering KSI Beginner 1 Lessons 3–4
+- introduced Jisoo (`지수`) gradually as a recurring friend
+- Lesson 3 focuses on likes/preferences, `좋아하다`, and `도` ("also/too")
+- Lesson 4 focuses on place identification, `여기/저기/어디`, association/possession with `의` and `제`, and recycling `아니에요`
+- Arc 1 identity/negation language is deliberately recycled inside Arc 2
+- scene-level visual switching is assigned using only existing artwork that is context-compatible enough for the current campus/café story beats
+- no paid image-generation credits were spent silently
+- the published-batch completion screen is now dynamic instead of hard-coded to "Arc 1 / 8 episodes"
+- inline JavaScript compile-only syntax check passed before commit
+
+Arc 2 episodes:
+9. The Drama Club Poster
+10. Same Taste
+11. What Do You Like?
+12. Club Night
+13. The Other Campus
+14. Is This the Library?
+15. Campus Treasure Hunt
+16. Found It
+
+Deployment status at this checkpoint:
+- the stable production URL was fetched after the GitHub commit and still served the older 8-episode build
+- production therefore has **not** been claimed current for Arc 2
+- the available Vercel connector deployment action returned a tool-unavailable error, so source was not falsely reported as deployed
+- next production action is to deploy the exact current GitHub `index.html` to the existing `haneul-kdrama-interactive` project and verify Episode 9 / Episode 16 markers on the stable domain
+
+## Next implementation target after Arc 2 production verification
+
+Proceed with **Arc 3 — Rainy Days & Messages**:
+- Episodes 17–24
+- KSI Beginner 1 Lessons 5–6
+- preserve Episodes 1–16 progress/review compatibility
+- keep Level 2 dormant until the Level 1 rebuild is complete
+- preserve review-unlocked development mode unless the user changes it
